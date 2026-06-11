@@ -38,8 +38,15 @@
 
             <TextBlock
                 Style="{DynamicResource TextBlockSubtitle}"
-                Text="Open source app for SharePoint Admins"
+                Text="AutomationsGuru SharePoint Online toolkit"
                 HorizontalAlignment="Center"/>
+
+            <TextBlock
+                Style="{DynamicResource TextBlockBody}"
+                Text="Derived from NovaPoint by Barbarur under the MIT License"
+                HorizontalAlignment="Center"
+                TextWrapping="Wrap"
+                Margin="0,6,0,0"/>
 
             <TextBlock
                 x:Name="VersionNo"

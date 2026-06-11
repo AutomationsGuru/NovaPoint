@@ -1,4 +1,3 @@
-﻿using Microsoft.Graph;
 using NovaPointLibrary.Commands.SharePoint.PreservationHoldLibrary;
 using PnP.Core.QueryModel;
 using System;

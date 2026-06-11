@@ -41,9 +41,10 @@ namespace NovaPointWPF.Pages.SolutionsFormParameters
             if (ComboBoxAppProperties.SelectedItem is IAppClientProperties properties)
             {
                 NoAppNotification.Visibility = Visibility.Collapsed;
-                if (ComboBoxAppProperties.SelectedItem is AppClientConfidentialProperties)
+                if (ComboBoxAppProperties.SelectedItem is AppClientConfidentialProperties confidentialProperties)
                 {
-                    CertificatePasswordPanel.Visibility = Visibility.Visible;
+                    CertificatePasswordPanel.Visibility = confidentialProperties.CertificatePasswordSaved ? Visibility.Collapsed : Visibility.Visible;
+                    TextBoxCertificatePassword.Password = string.Empty;
                 }
                 else
                 {
@@ -62,9 +63,13 @@ namespace NovaPointWPF.Pages.SolutionsFormParameters
         {
             if (ComboBoxAppProperties.SelectedItem is AppClientConfidentialProperties confidentialProperties)
             {
-                SecureString securePassword = TextBoxCertificatePassword.SecurePassword;
-                securePassword.MakeReadOnly();
-                confidentialProperties.Password = securePassword;
+                if (TextBoxCertificatePassword.SecurePassword.Length > 0)
+                {
+                    SecureString securePassword = TextBoxCertificatePassword.SecurePassword;
+                    securePassword.MakeReadOnly();
+                    confidentialProperties.Password = securePassword;
+                }
+
                 return confidentialProperties;
             }
             else if (ComboBoxAppProperties.SelectedItem is AppClientPublicProperties publicProperties)

@@ -35,7 +35,7 @@ namespace NovaPointWPF.Pages
 
         private void GoToDocsClick(object sender, RoutedEventArgs e)
         {
-            string NavigateUri = "https://github.com/Barbarur/NovaPoint/wiki";
+            string NavigateUri = "https://github.com/AutomationsGuru/NovaPoint";
             OpenBrowser(NavigateUri);
         }
 

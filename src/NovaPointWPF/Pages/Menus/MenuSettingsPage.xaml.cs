@@ -1,4 +1,3 @@
-﻿using Microsoft.Graph;
 using NovaPointLibrary.Commands.Authentication;
 using NovaPointLibrary.Commands.Utilities;
 using NovaPointWPF.Properties;

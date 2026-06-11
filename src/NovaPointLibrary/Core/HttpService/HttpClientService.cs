@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using static Microsoft.SharePoint.Client.ClientContextExtensions;
 using NovaPointLibrary.Core.Logging;
+using System.Diagnostics;
 
 
 namespace NovaPointLibrary.Core.HttpService
@@ -28,12 +29,15 @@ namespace NovaPointLibrary.Core.HttpService
 
                 HttpRequestMessage requestMessage = await messageWriter.GetMessageAsync();
                 HttpResponseMessage response;
+                Stopwatch stopwatch = Stopwatch.StartNew();
                 try
                 {
                     response = await _client.SendAsync(requestMessage, cancellationToken);
+                    stopwatch.Stop();
                 }
                 catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException)
                 {
+                    stopwatch.Stop();
                     logger.Info(_className, $"The request timed out. Retrying after {waitTime} miliseconds.");
 
                     await Task.Delay(waitTime, cancellationToken);
@@ -41,6 +45,7 @@ namespace NovaPointLibrary.Core.HttpService
                 }
                 catch (HttpRequestException e) when (e.InnerException is System.Net.Sockets.SocketException)
                 {
+                    stopwatch.Stop();
                     logger.Info(_className, $"Socket exception: {e.Message}. Retrying after {waitTime} miliseconds.");
 
                     await Task.Delay(waitTime, cancellationToken);
@@ -48,12 +53,14 @@ namespace NovaPointLibrary.Core.HttpService
                 }
                 catch (HttpRequestException ex)
                 {
+                    stopwatch.Stop();
                     logger.Info(_className, $"An error occurred while sending the request: {ex.Message}. Retrying after {waitTime} miliseconds.");
                     await Task.Delay(waitTime, cancellationToken);
                     continue;
                 }
                 catch (Exception e)
                 {
+                    stopwatch.Stop();
                     logger.Debug(_className, $"ERROR SENDING MESSAGE TO {requestMessage.RequestUri}. EXCEPTION MESSAGE: {e.Message}.");
                     throw;
                 }
@@ -61,7 +68,7 @@ namespace NovaPointLibrary.Core.HttpService
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-                    logger.Info(_className, $"Successful response {responseContent}.");
+                    logger.Info(_className, $"Successful response from '{requestMessage.RequestUri}' with status code {response.StatusCode} in {stopwatch.ElapsedMilliseconds} ms. Response body redacted ({responseContent.Length} characters).");
                     return responseContent;
                 }
                 else if (response != null && (response.StatusCode == HttpStatusCode.TooManyRequests || response.StatusCode == HttpStatusCode.ServiceUnavailable))
@@ -83,7 +90,7 @@ namespace NovaPointLibrary.Core.HttpService
                 else
                 {
                     string responseContent = await response.Content.ReadAsStringAsync();
-                    string exceptionMessage = $"Request to API '{requestMessage.RequestUri}' failed with status code {response.StatusCode} and response content: {responseContent}.";
+                    string exceptionMessage = $"Request to API '{requestMessage.RequestUri}' failed with status code {response.StatusCode}. Response body redacted ({responseContent.Length} characters).";
 
                     if (response.Headers.TryGetValues("request-id", out IEnumerable<string>? values))
                     {

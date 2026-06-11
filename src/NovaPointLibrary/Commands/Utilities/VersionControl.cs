@@ -1,4 +1,3 @@
-﻿using Microsoft.Graph;
 using Microsoft.SharePoint.Client;
 using Newtonsoft.Json;
 using NovaPointLibrary.Commands.Authentication;

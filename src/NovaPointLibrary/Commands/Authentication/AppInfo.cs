@@ -149,7 +149,7 @@ namespace NovaPointLibrary.Commands.Authentication
         {
             string accessToken = await GetSPOAccessToken(siteUrl);
 
-            using var clientContext = new ClientContext(siteUrl);
+            var clientContext = new ClientContext(siteUrl);
             clientContext.ExecutingWebRequest += (sender, e) =>
             {
                 e.WebRequestExecutor.RequestHeaders["Authorization"] = "Bearer " + accessToken;

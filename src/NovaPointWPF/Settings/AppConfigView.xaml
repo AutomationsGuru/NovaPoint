@@ -48,13 +48,13 @@
 
                 <Button
                 Style="{DynamicResource ButtonSolutionMainAction}"
-                Content="New delegated app"
+                Content="New delegated app (legacy)"
                 Width="210"
                 Click="AddAppClientPublicPropertiesFormClick"/>
 
                 <Button
                 Style="{DynamicResource ButtonSolutionMainAction}"
-                Content="New App-only"
+                Content="New app-only certificate"
                 Width="210"
                 Click="AddAppClientConfidentialPropertiesClick"/>
 

@@ -1,4 +1,3 @@
-﻿using Microsoft.Graph;
 using Microsoft.Win32;
 using NovaPointLibrary.Commands.SharePoint.List;
 using NovaPointLibrary.Commands.SharePoint.Site;
