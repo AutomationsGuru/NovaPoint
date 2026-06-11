@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace NovaPointLibrary.Core.Authentication
@@ -10,12 +11,17 @@ namespace NovaPointLibrary.Core.Authentication
         public Guid TenantId { get; set; } = Guid.Empty;
         public Guid ClientId { get; set; } = Guid.Empty;
         public string CertificatePath { get; set; } = string.Empty;
+        public bool CertificatePasswordSaved { get; set; } = false;
+
+        [JsonIgnore]
         public System.Security.SecureString? Password { get; set; } = null;
+
         internal X509Certificate2 Certificate
         {
             get
             {
-                return new X509Certificate2(CertificatePath, Password);
+                System.Security.SecureString? password = Password ?? AppClientCertificatePasswordStore.Load(Id);
+                return new X509Certificate2(CertificatePath, password);
             }
         }
 
@@ -23,7 +29,9 @@ namespace NovaPointLibrary.Core.Authentication
 
         public AppClientConfidentialProperties Clone()
         {
-            return (AppClientConfidentialProperties)this.MemberwiseClone();
+            AppClientConfidentialProperties clone = (AppClientConfidentialProperties)this.MemberwiseClone();
+            clone.Password = null;
+            return clone;
         }
 
         public void ValidateProperties()
@@ -43,6 +51,14 @@ namespace NovaPointLibrary.Core.Authentication
             if (!File.Exists(CertificatePath))
             {
                 throw new Exception("Certificate no found on path");
+            }
+            try
+            {
+                using X509Certificate2 certificate = Certificate;
+            }
+            catch
+            {
+                throw new Exception("Certificate could not be opened. Confirm the certificate path and password.");
             }
         }
     }

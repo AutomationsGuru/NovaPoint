@@ -1,4 +1,3 @@
-﻿using Microsoft.Graph.ExternalConnectors;
 using Microsoft.Identity.Client;
 using NovaPointLibrary.Core.Authentication;
 using NovaPointLibrary.Core.Settings;

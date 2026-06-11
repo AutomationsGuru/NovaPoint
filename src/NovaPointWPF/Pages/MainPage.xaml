@@ -28,25 +28,25 @@
                 <RadioButton
                     Style="{DynamicResource MainPageToggleButton}"
                     Content="Directory"
-                    Click="Directory_Click"
+                    Checked="Directory_Click"
                     DockPanel.Dock="Top"/>
                 
                 <RadioButton
                     Style="{DynamicResource MainPageToggleButton}"
                     Content="Reports"
-                    Click="Reports_Click"
+                    Checked="Reports_Click"
                     DockPanel.Dock="Top"/>
 
                 <RadioButton
                     Style="{DynamicResource MainPageToggleButton}"
                     Content="Automation"
-                    Click="Automation_Click"
+                    Checked="Automation_Click"
                     DockPanel.Dock="Top"/>
 
                 <RadioButton
                     Style="{DynamicResource MainPageToggleButton}"
                     Content="Quick Fix"
-                    Click="QuickFix_Click"
+                    Checked="QuickFix_Click"
                     DockPanel.Dock="Top"/>
 
                 <Rectangle
@@ -61,13 +61,13 @@
                     Style="{DynamicResource MainPageToggleButton}"
                     x:Name="SettingsButton"
                     Content="Settings"
-                    Click="Settings_Click"
+                    Checked="Settings_Click"
                     DockPanel.Dock="Top"/>
                 
                 <RadioButton
                     Style="{DynamicResource MainPageToggleButton}"
                     Content="About"
-                    Click="AboutClick"
+                    Checked="AboutClick"
                     DockPanel.Dock="Top"/>
 
                 <TextBlock

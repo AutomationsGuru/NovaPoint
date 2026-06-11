@@ -43,6 +43,7 @@ namespace NovaPointLibrary.Core.Settings
                 {
                     string json = File.ReadAllText(settingsFile);
                     appSettings = JsonConvert.DeserializeObject<AppConfig>(json) ?? throw new InvalidOperationException("Failed to deserialize JSON.");
+                    RefreshCertificatePasswordState(appSettings);
                 }
                 catch
                 {
@@ -76,7 +77,11 @@ namespace NovaPointLibrary.Core.Settings
 
         public void RemoveApp(IAppClientProperties clientProperties)
         {
-            if (clientProperties is AppClientConfidentialProperties confidentialProperties) { ListAppClientConfidentialProperties.RemoveAll(p => p.Id == confidentialProperties.Id); }
+            if (clientProperties is AppClientConfidentialProperties confidentialProperties)
+            {
+                AppClientCertificatePasswordStore.Delete(confidentialProperties.Id);
+                ListAppClientConfidentialProperties.RemoveAll(p => p.Id == confidentialProperties.Id);
+            }
             else if (clientProperties is AppClientPublicProperties publicProperties) { ListAppClientPublicProperties.RemoveAll(p => p.Id == publicProperties.Id); }
             SaveSettings();
         }
@@ -87,9 +92,20 @@ namespace NovaPointLibrary.Core.Settings
             
             if (clientProperties is AppClientConfidentialProperties confidentialProperties)
             {
+                if (confidentialProperties.Password != null && confidentialProperties.Password.Length > 0)
+                {
+                    AppClientCertificatePasswordStore.Save(confidentialProperties.Id, confidentialProperties.Password);
+                    confidentialProperties.CertificatePasswordSaved = true;
+                }
+                else
+                {
+                    confidentialProperties.CertificatePasswordSaved = AppClientCertificatePasswordStore.HasPassword(confidentialProperties.Id);
+                }
+
+                AppClientConfidentialProperties confidentialPropertiesCopy = confidentialProperties.Clone();
                 int index = ListAppClientConfidentialProperties.FindIndex(p => p.Id == confidentialProperties.Id);
-                if (index != -1) { ListAppClientConfidentialProperties[index] = confidentialProperties.Clone(); }
-                else { ListAppClientConfidentialProperties.Add(confidentialProperties); }
+                if (index != -1) { ListAppClientConfidentialProperties[index] = confidentialPropertiesCopy; }
+                else { ListAppClientConfidentialProperties.Add(confidentialPropertiesCopy); }
             }
 
             else if (clientProperties is AppClientPublicProperties publicProperties)
@@ -106,6 +122,15 @@ namespace NovaPointLibrary.Core.Settings
         {
             var json = JsonConvert.SerializeObject(this, Formatting.Indented);
             File.WriteAllText(GetSettingsPath(), json);
+        }
+
+        private static void RefreshCertificatePasswordState(AppConfig appSettings)
+        {
+            foreach (AppClientConfidentialProperties properties in appSettings.ListAppClientConfidentialProperties)
+            {
+                properties.CertificatePasswordSaved = AppClientCertificatePasswordStore.HasPassword(properties.Id);
+                properties.Password = null;
+            }
         }
 
         public static void RemoveTokenCache()

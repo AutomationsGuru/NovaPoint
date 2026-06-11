@@ -1,5 +1,4 @@
 ﻿using AngleSharp.Css.Dom;
-using Microsoft.Graph;
 using Microsoft.SharePoint.Client;
 using System;
 using System.Collections.Generic;

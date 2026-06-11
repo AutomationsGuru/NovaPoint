@@ -40,6 +40,29 @@
 
             </DockPanel>
 
+            <DockPanel Margin="0,8,0,0">
+
+                <TextBlock
+                    Style="{DynamicResource TextBlockBody}"
+                    Text="PFX password"/>
+
+                <PasswordBox
+                    x:Name="PasswordBoxCertificatePassword"
+                    Style="{DynamicResource PasswordBoxForm}"
+                    Width="255"
+                    Margin="6,0,0,0"
+                    IsEnabled="False"/>
+
+                <TextBlock
+                    x:Name="StoredPasswordStatus"
+                    Style="{DynamicResource TextBlockBody}"
+                    Margin="12,0,0,0"
+                    VerticalAlignment="Center"/>
+
+                <TextBlock DockPanel.Dock="Right"/>
+
+            </DockPanel>
+
         </StackPanel>
 
     </Grid>

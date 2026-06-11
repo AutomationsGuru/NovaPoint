@@ -30,7 +30,7 @@ namespace NovaPointLibrary.Commands.Utilities
         internal async Task<string> PostAsync(string uriString, string content)
         {
             _appInfo.IsCancelled();
-            _logger.Info(GetType().Name, $"POST '{uriString}' with content '{content}'");
+            _logger.Info(GetType().Name, $"POST '{uriString}' with redacted content ({content.Length} characters).");
 
             HttpMessageWriter messageWriter = new(_logger, _appInfo, HttpMethod.Post, uriString, content: content);
             string response = await HttpClientService.SendHttpRequestMessageAsync(_logger, messageWriter, _appInfo.CancelToken);

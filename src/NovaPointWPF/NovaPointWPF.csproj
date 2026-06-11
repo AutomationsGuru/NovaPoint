@@ -6,7 +6,10 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>NovaPointIcon.ico</ApplicationIcon>
-    <AssemblyName>NovaPoint</AssemblyName>
+    <AssemblyName>AutomationsGuruSPOToolkit</AssemblyName>
+    <AssemblyTitle>AutomationsGuru SPO Toolkit</AssemblyTitle>
+    <Product>AutomationsGuru SPO Toolkit</Product>
+    <Description>AutomationsGuru SharePoint Online toolkit based on NovaPoint.</Description>
     <AssemblyVersion>0.15.3</AssemblyVersion>
   </PropertyGroup>
 
