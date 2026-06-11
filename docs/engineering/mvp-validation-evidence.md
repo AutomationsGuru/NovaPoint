@@ -360,6 +360,91 @@ Conversion result:
 - Sensitive account/access values are collapsed into generic categories such as
   `Directory group`, `SharePoint group`, `Sharing link`, and `User`.
 
+## Approved Test-Site Read-Only Report Suite
+
+Approval:
+
+- Matthew approved tenant-connected testing against the known AutomationsGuru
+  test site on 2026-06-10.
+- This validation used the saved app-only certificate profile
+  `PnP-ShareGate-NovaPoint`.
+- No report-runner tenant mutation was attempted.
+- The actual site URL remains out of source-controlled documentation.
+
+Preflight command:
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-tenant-readonly-graph-smoke.ps1 `
+  -ApproveTenantConnection `
+  -ApprovalReference "Matthew-2026-06-10-script-testing-readonly-preflight" `
+  -UseSavedProfile
+```
+
+Preflight result:
+
+- Tenant connection attempted: `True`.
+- Tenant mutation attempted: `False`.
+- Saved profile used: `True`.
+- Password provided in command: `False`.
+- Raw tenant values printed: `False`.
+- Graph smoke status: `Pass`.
+- Manifest status: `Succeeded`.
+- Manifest run mode: `Report`.
+- Manifest mutation intents: `None`.
+
+Site-scoped report command:
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-tenant-readonly-report-smokes.ps1 `
+  -ApproveTenantConnection `
+  -ApprovalReference "Matthew-2026-06-10-script-testing-readonly-all-reports" `
+  -SiteUrl "<approved-automationsguru-test-site-url>" `
+  -IncludeListStorageMetrics `
+  -IncludeSubsites `
+  -BreakdownSharingInvitations `
+  -TimeoutSecondsPerReport 900
+```
+
+Sanitized site-scoped result:
+
+| Report | Manifest | CSV files | Rows | Rows with `Remarks` | Notes |
+| --- | --- | ---: | ---: | ---: | --- |
+| Site | `Succeeded` | 1 | 1 | 0 | Single site scope |
+| OrphanSite | `Succeeded` | 0 | 0 | 0 | No matching rows |
+| PrivacySite | `Succeeded` | 1 | 1 | 1 | Group/privacy remark requires raw local review |
+| List | `Succeeded` | 1 | 2 | 0 | Storage metrics included |
+| Item | `Succeeded` | 1 | 17 | 0 | Site-scoped item inventory |
+| ShortcutOD | `Succeeded` | 1 | 1 | 1 | Non-shortcut/missing OneDrive metadata remark |
+| PHLItem | `Succeeded` | 1 | 1 | 1 | PHL unavailable/inaccessible remark |
+| PageAssets | `Succeeded` | 0 | 0 | 0 | No matching rows |
+| RecycleBin | `Succeeded` | 0 | 0 | 0 | No matching rows |
+| Membership | `Succeeded` | 1 | 6 | 0 | Site membership buckets |
+| Permissions | `Succeeded` | 1 | 6 | 0 | Site and document-library permissions |
+| SharingLinks | `Succeeded` | 0 | 0 | 0 | No matching rows |
+
+All 12 reports completed before timeout. Every run manifest recorded
+`RunMode=Report`, `TenantMutationIntent=None`, and
+`SourceMutationIntent=None`.
+
+Conversion command:
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\scripts\convert-novapoint-report-output.ps1 `
+  -RunLabel "script-testing-20260610-readonly-all-reports"
+```
+
+Conversion result:
+
+- Sanitized Markdown summary:
+  `out\report-summaries\novapoint-report-summary-script-testing-20260610-readonly-all-reports.md`.
+- Sanitized JSON summary:
+  `out\report-summaries\novapoint-report-summary-script-testing-20260610-readonly-all-reports.json`.
+- Report count: `12`.
+- Raw rows included: `False`.
+- Summary Markdown code fences were corrected in
+  `scripts\convert-novapoint-report-output.ps1` after this run and the summary
+  was regenerated.
+
 ## Source Checks
 
 Focused searches confirmed:
@@ -372,8 +457,8 @@ Focused searches confirmed:
 
 ## Remaining Approval Gates
 
-- Additional sandbox tenant read-only report smoke tests require separate
-  Matthew approval naming exact solution and scope.
+- Additional tenant/site read-only report smoke tests require Matthew approval
+  naming exact solution and scope.
 - Mutation-gate smoke against a real tenant form requires separate Matthew
   approval for that tenant-connected form path.
 - Controlled mutation testing requires separate Matthew approval naming scope,

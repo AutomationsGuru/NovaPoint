@@ -177,6 +177,27 @@ No report-runner tenant mutation was attempted. The cancelled reports still
 produced useful partial CSVs, but should be rerun with either a larger timeout
 or a narrower site/list scope before using them as final client evidence.
 
+Sanitized site-scoped report-set run on 2026-06-10:
+
+| Report | Manifest | CSV files | Rows | Rows with `Remarks` | Notes |
+| --- | --- | ---: | ---: | ---: | --- |
+| Site | `Succeeded` | 1 | 1 | 0 | Single approved test-site scope |
+| OrphanSite | `Succeeded` | 0 | 0 | 0 | No matching rows |
+| PrivacySite | `Succeeded` | 1 | 1 | 1 | Group/privacy remark requires raw local review |
+| List | `Succeeded` | 1 | 2 | 0 | Storage metrics included |
+| Item | `Succeeded` | 1 | 17 | 0 | Site-scoped item inventory |
+| ShortcutOD | `Succeeded` | 1 | 1 | 1 | Non-shortcut/missing OneDrive metadata remark |
+| PHLItem | `Succeeded` | 1 | 1 | 1 | PHL unavailable/inaccessible remark |
+| PageAssets | `Succeeded` | 0 | 0 | 0 | No matching rows |
+| RecycleBin | `Succeeded` | 0 | 0 | 0 | No matching rows |
+| Membership | `Succeeded` | 1 | 6 | 0 | Site membership buckets |
+| Permissions | `Succeeded` | 1 | 6 | 0 | Site and document-library permissions |
+| SharingLinks | `Succeeded` | 0 | 0 | 0 | No matching rows |
+
+All 12 site-scoped reports completed before timeout. Use this pattern as the
+first-pass validation shape for small approved test sites: app-only Graph
+preflight first, then site-scoped report set, then sanitized conversion.
+
 ## Review Workflow
 
 1. Confirm Matthew-approved tenant and scope.

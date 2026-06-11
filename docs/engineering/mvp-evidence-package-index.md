@@ -138,6 +138,16 @@ Latest approved AutomationsGuru tenant report-suite result:
 - Sanitized JSON/Markdown conversion was generated under ignored
   `out\report-summaries\`.
 
+Latest approved AutomationsGuru test-site report-suite result:
+
+- All 12 NovaPoint report keys were exercised read-only against the approved
+  test site.
+- All 12 reports completed before timeout.
+- Every run manifest recorded `RunMode=Report`, `TenantMutationIntent=None`,
+  and `SourceMutationIntent=None`.
+- Sanitized conversion was generated under ignored `out\report-summaries\`.
+- The actual test-site URL and raw report rows remain outside source control.
+
 ## Safety Gates Not Crossed
 
 The current package does not represent approval for:
