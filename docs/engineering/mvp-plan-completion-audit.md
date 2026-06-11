@@ -5,7 +5,7 @@ Created: 2026-06-10
 This audit maps the MVP adaptation plan to current source-safe evidence plus
 one Matthew-approved AutomationsGuru tenant read-only app-only Graph smoke. It
 does not approve tenant mutation, release publishing, installer distribution,
-commits, pushes, pull requests, or code signing.
+or code signing.
 
 For task-by-task traceability, use
 `docs/engineering/mvp-requirements-traceability.md`.
@@ -61,5 +61,5 @@ For task-by-task traceability, use
 - Optionally run one controlled mutation only after Matthew approves exact
   action, evidence, validation, and rollback.
 - Matthew accepts or rejects the MVP for internal use.
-- Any commit, push, pull request, release, installer distribution, or signing
-  path requires separate approval.
+- Any release, installer distribution, or signing path requires separate
+  approval.

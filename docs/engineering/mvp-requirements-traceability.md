@@ -4,7 +4,7 @@ Created: 2026-06-10
 
 This traceability record maps the implementation plan to current evidence. It
 does not approve client tenant access, tenant mutation, release publishing,
-installer distribution, commits, pushes, pull requests, or code signing.
+installer distribution, or code signing.
 
 Status meanings:
 
@@ -77,7 +77,7 @@ larger timeout or narrower approved scope.
 ## Remaining Approval Gates
 
 - Matthew acceptance for internal MVP use.
-- Commit, push, pull request, release, installer distribution, and code signing.
+- Release, installer distribution, and code signing.
 - Kate/client tenant report execution.
 - Tenant-connected mutation-gate cancellation smoke.
 - Any controlled tenant mutation.

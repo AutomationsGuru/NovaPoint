@@ -10,8 +10,8 @@ source control.
 
 ## Review Position
 
-Current position: `Review-ready for Matthew`, not released, not committed, not
-published, and not approved for client tenant execution.
+Current position: `Merged for internal review`, not released, not installer
+distributed, not code signed, and not approved for client tenant execution.
 
 The MVP is ready for internal review because:
 
@@ -36,7 +36,7 @@ The MVP is ready for internal review because:
 | Requirements traceability | `docs/engineering/mvp-requirements-traceability.md` |
 | Validation results | `docs/engineering/mvp-validation-evidence.md` |
 | Review checklist | `docs/engineering/mvp-review-checklist.md` |
-| Source-control handoff | `docs/engineering/mvp-source-control-handoff.md` |
+| Source-control record | `docs/engineering/mvp-source-control-handoff.md` |
 | Warning baseline | `docs/engineering/warning-baseline.md` |
 | Post-MVP roadmap | `docs/engineering/post-mvp-roadmap.md` |
 | Operator runbook | `docs/operations/mvp-operator-runbook.md` |
@@ -145,8 +145,7 @@ The current package does not represent approval for:
 - Client tenant access.
 - Tenant mutation.
 - Controlled mutation testing.
-- Commit, push, pull request, release, publishing, code signing, or installer
-  distribution.
+- Release publishing, code signing, or installer distribution.
 - Copying raw reports/logs/manifests into source.
 - Sharing raw tenant values outside the approved operator context.
 
@@ -157,7 +156,5 @@ The current package does not represent approval for:
 3. Review `mvp-review-checklist.md`.
 4. Confirm the app display name, `AutomationsGuruSPOToolkit.exe` executable
    name, and portable distribution format are acceptable for internal use.
-5. Decide whether to approve source-control handling: stage, commit, push, and
-   pull request.
-6. Decide whether to approve any next tenant scope, such as Kate's environment,
+5. Decide whether to approve any next tenant scope, such as Kate's environment,
    using `new-tenant-report-readiness.md`.

@@ -1,15 +1,17 @@
-# MVP Source-Control Handoff
+# MVP Source-Control Record
 
 Created: 2026-06-10
 
-This handoff prepares the NovaPoint-derived MVP for Matthew review and a later
-source-control action. It is not approval to stage, commit, push, open a pull
-request, publish, release, sign, or distribute the package.
+This record documents the source-control handling for the NovaPoint-derived MVP.
+It is not approval to publish, release, sign, installer-distribute, connect to a
+client tenant, or run tenant mutations.
 
-## Current Branch
+## Merged State
 
 ```text
-codex/novapoint-mvp-foundation
+Base branch: main
+Merged PR: https://github.com/AutomationsGuru/NovaPoint/pull/1
+Merge commit: 1b5b66e2409e4f8114337258f84686356e26670b
 ```
 
 Expected remotes:
@@ -38,18 +40,15 @@ out\publish\win-x64\AutomationsGuruSPOToolkit.exe
 
 The publish folder is generated evidence and must remain ignored.
 
-## Suggested Commit Shape
+## Commit Shape
 
-If Matthew approves source-control handling, keep the first commit as one
-coherent MVP foundation commit unless review asks for smaller commits.
-
-Suggested commit title:
+Merged commit title:
 
 ```text
 feat: add AutomationsGuru SPO Toolkit MVP foundation
 ```
 
-Suggested commit body:
+Commit body summary:
 
 ```text
 - add reproducible restore/build/publish/validation scripts
@@ -60,9 +59,9 @@ Suggested commit body:
 - document report scenarios, output handling, permissions, risk, and MVP review evidence
 ```
 
-## Stage Intentionally
+## Staged Intentionally
 
-Stage source, scripts, and docs from the working tree. Include these categories:
+The merged MVP source-control set intentionally included:
 
 - `NuGet.Config`
 - `NOTICE.md`
@@ -76,14 +75,14 @@ Stage source, scripts, and docs from the working tree. Include these categories:
 - `src\NovaPointWPF\**\*.cs`
 - `src\NovaPointWPF\NovaPointWPF.csproj`
 
-Before committing, inspect staged files with:
+The staging review used:
 
 ```powershell
 git diff --cached --name-status
 git diff --cached --check
 ```
 
-## Do Not Stage
+## Do Not Stage In Future Work
 
 Do not stage:
 
@@ -99,9 +98,9 @@ Do not stage:
   group names, IDs, item paths, file names, sharing URLs, tokens, certificate
   paths, or client content
 
-## Pre-Commit Checks
+## Pre-Commit Checks For Follow-Up Changes
 
-Run these before staging approval is used:
+Run these before future staging/PR work:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-mvp-local.ps1
@@ -119,13 +118,13 @@ Expected result: no matches.
 
 ## Pull Request Notes
 
-If Matthew approves a PR, include:
+The merged MVP PR included:
 
 - Link to `docs\engineering\mvp-evidence-package-index.md`.
 - Link to `docs\engineering\mvp-requirements-traceability.md`.
 - Latest `validate-mvp-local.ps1` result.
 - Statement that client tenant access, tenant mutation, publishing, release,
-  installer distribution, and signing are not included.
+  installer distribution, and signing were not included.
 - Known partial full-tenant report evidence: `Item` and `Permissions` timed out
   on the approved AutomationsGuru full-suite run and require narrower or longer
   reruns before final client use.
