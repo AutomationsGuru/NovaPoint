@@ -500,9 +500,9 @@ foreach ($summary in $summaries) {
     $metricJson = $summary.Metrics | ConvertTo-Json -Depth 12
     $lines.Add("Sanitized metrics:") | Out-Null
     $lines.Add("") | Out-Null
-    $lines.Add("````json") | Out-Null
+    $lines.Add('```json') | Out-Null
     $lines.Add($metricJson) | Out-Null
-    $lines.Add("````") | Out-Null
+    $lines.Add('```') | Out-Null
     $lines.Add("") | Out-Null
 }
 
