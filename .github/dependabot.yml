@@ -5,8 +5,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "08:00"
+      day: "friday"
+      time: "11:30"
       timezone: "America/Edmonton"
     labels:
       - "dependencies"
@@ -25,8 +25,8 @@ updates:
     directory: "/src"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "08:00"
+      day: "friday"
+      time: "11:30"
       timezone: "America/Edmonton"
     labels:
       - "dependencies"
@@ -45,8 +45,8 @@ updates:
     directory: "/src/NovaPointConsoleTester"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "08:00"
+      day: "friday"
+      time: "11:30"
       timezone: "America/Edmonton"
     labels:
       - "dependencies"
@@ -65,8 +65,8 @@ updates:
     directory: "/src/NovaPointLibrary"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "08:00"
+      day: "friday"
+      time: "11:30"
       timezone: "America/Edmonton"
     labels:
       - "dependencies"
@@ -85,8 +85,8 @@ updates:
     directory: "/src/NovaPointWPF"
     schedule:
       interval: "weekly"
-      day: "tuesday"
-      time: "08:00"
+      day: "friday"
+      time: "11:30"
       timezone: "America/Edmonton"
     labels:
       - "dependencies"
